@@ -14,6 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/data-connect', 'dataController@renz');
+Route::get('/data-connect', 'dataController@data_connect');
 Route::POST('/new_data', 'dataController@new_data');
-Route::get('/data-connect1', 'dataController@renz1');
+Route::post('/data', 'dataController@manual_connect');

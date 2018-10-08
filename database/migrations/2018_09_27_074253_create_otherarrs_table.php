@@ -16,14 +16,14 @@ class CreateOtherarrsTable extends Migration
         Schema::create('otherarrs', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('history_id');
-            $table->string('sequence');
-            $table->string('distance',100);
-            $table->string('totaldistance',100);
-            $table->string('motion', 100);
-            $table->string('valid', 100);
-            $table->string('ignition', 100);
-            $table->string('temp1',100);
-            $table->string('enginehours',100);
+            $table->string('sequence')->nullable();
+            $table->string('distance',100)->nullable();
+            $table->string('totaldistance',100)->nullable();
+            $table->string('motion', 100)->nullable();
+            $table->string('valid', 100)->nullable();
+            $table->string('ignition', 100)->nullable();
+            $table->string('temp1',100)->nullable();
+            $table->string('enginehours',100)->nullable();
             $table->timestamps();
         });
     }
