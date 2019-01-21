@@ -105,7 +105,8 @@
                 vertical-align:middle;
             }
         </style>
-        <script type="text/javascript"> 
+         
+            <script type="text/javascript"> 
             function display_c(){
             var refresh=1000; // Refresh rate in milli seconds
             mytime=setTimeout('display_ct()',refresh)
@@ -120,14 +121,20 @@
             if(minute <10 ) {minute='0' + minute; }
             if(second<10){second='0' + second;}
             var x3 = hour+':'+minute+':'+second
-            if ((minute == 00 )&& (hour == 00 )&& (second == 01 ))
+            if ((hour == 00 )&&(minute== 00)&&(second==01))
             {
+                window.open("data-connect"); 
+                window.open("destroy-data"); 
+            }
+          
+           
             document.getElementById('ct').innerHTML = x3;
             
             display_c();
             
              }
             </script>
+        
             </head>
     
             <body onload=display_ct();>
@@ -147,9 +154,8 @@
                             @include('error')
                         </form>
                         <br>
-                        
-                    </div>
+                   </div>
                 </div>
             </body>
         </html>
-{{-- href="{{ url('/data-connect') }}" --}}
+href="{{ url('/data-connect') }}"

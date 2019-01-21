@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Device;
 use App\History;
 use App\Otherarr;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 class dataController extends Controller
 {
     //
@@ -155,8 +157,11 @@ class dataController extends Controller
             {
                 foreach($item['items'] as  $values )
                         {
+                            // dd($values['device_data']['sim_number']);
                             $data = new Device;
                             $data->device_id = $values['id'];
+                            $data->sim_card = $values['device_data']['sim_number'];
+                            $data->imei = $values['device_data']['imei'];
                             $data->plate_number = $values['name'];
                             if (Device::where('device_id', '=', $values['id'])->count() > 0) {
                                
@@ -235,6 +240,55 @@ class dataController extends Controller
             }
             echo "<script>window.close();</script>";
   
+    }
+    
+    public function destroy()
+    {
+        
+            $rUrl = 'http://gpstracker.lafilgroup.com/api/get_alerts?user_api_hash=$2y$10$Vlghefaflcg2Mi5LdeqpWu7/zpkiaAb9IMD7k9.5aSg51PluLF73S';
+            $datas = json_decode(file_get_contents($rUrl), true);
+            // dd($datas);
+            foreach($datas['items']['alerts'] as $k => $v) {
+                if( strtotime( $v['created_at'] ) < strtotime( date('Y-m-d H:i:s') ) ) {
+                
+                    $client = new Client();
+   
+                    // Create a POST request
+                    $response = $client->request(
+                        'POST',
+                        'http://gpstracker.lafilgroup.com/api/destroy_alert',
+                        [
+                            'form_params' => [
+                                'user_api_hash' =>'$2y$10$Vlghefaflcg2Mi5LdeqpWu7/zpkiaAb9IMD7k9.5aSg51PluLF73S',
+                                'alert_id' => $v['id'],
+                                ]
+                                ]
+                            );
+               }
+            }
+            $rUrl = 'http://gpstracker.lafilgroup.com/api/get_geofences?user_api_hash=$2y$10$Vlghefaflcg2Mi5LdeqpWu7/zpkiaAb9IMD7k9.5aSg51PluLF73S';
+            $datas = json_decode(file_get_contents($rUrl), true);
+
+            foreach($datas['items']['geofences'] as $k => $v) {
+                if( strtotime( $v['created_at'] ) < strtotime( date('Y-m-d H:i:s') ) ) {
+                    $client = new Client();
+   
+                    // Create a POST request
+                    $response = $client->request(
+                        'POST',
+                        'http://gpstracker.lafilgroup.com/api/destroy_geofence',
+                        [
+                            'form_params' => [
+                                'user_api_hash' =>'$2y$10$Vlghefaflcg2Mi5LdeqpWu7/zpkiaAb9IMD7k9.5aSg51PluLF73S',
+                                'geofence_id' => $v['id'],
+                                ]
+                                ]
+                            );
+                  
+                
+                }
+            }
+            echo "<script>window.close();</script>";
     }
   
 }

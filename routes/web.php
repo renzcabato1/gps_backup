@@ -17,3 +17,4 @@ Route::get('/', function () {
 Route::get('/data-connect', 'dataController@data_connect');
 Route::POST('/new_data', 'dataController@new_data');
 Route::post('/data', 'dataController@manual_connect');
+Route::get('/destroy-data', 'dataController@destroy');
