@@ -16,6 +16,8 @@ class CreateDevicesTable extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('device_id');
+            $table->string('sim_card');
+            $table->string('imei');
             $table->string('plate_number',10);
             $table->timestamps();
         });

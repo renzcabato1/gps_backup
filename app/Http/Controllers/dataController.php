@@ -15,10 +15,7 @@ class dataController extends Controller
 
     public  function data_connect()
     {
-
-      
-
-        $rUrl = 'http://gpstracker.lafilgroup.com/api/get_devices?user_api_hash=$2y$10$AeNfa92L0azC0yfYhS9UMuQrrcACiitaR.8AvcidoCPDVFC5pl4cW';
+        $rUrl = 'http://gpstracker.lafilgroup.com/api/get_devices?user_api_hash=$2y$10$uH/xP348G263pv6mCnKGneAFAoffF9oYwEs8JTeYpV13PdIWVq8x6';
 
             $datas = json_decode(file_get_contents($rUrl), true);
             foreach($datas as $item)
@@ -35,19 +32,22 @@ class dataController extends Controller
                              {
                                 $data->save();
                              }
-                          
                             $date_today= date('Y-m-d'); 
                             $date = strtotime($date_today);
                             $date = strtotime("-1 day", $date);
                             $date_today1 = date('Y-m-d', $date);
-                            $rUrl1 = 'http://gpstracker.lafilgroup.com/api/get_history?device_id='.$values['id'].'&from_date='.$date_today1.'&from_time=00:00&to_date='.$date_today1.'&to_time=23:59&user_api_hash=$2y$10$AeNfa92L0azC0yfYhS9UMuQrrcACiitaR.8AvcidoCPDVFC5pl4cW';
+                            $rUrl1 = 'http://gpstracker.lafilgroup.com/api/get_history?device_id='.$values['id'].'&from_date='.$date_today1.'&from_time=00:00&to_date='.$date_today1.'&to_time=23:59&user_api_hash=$2y$10$uH/xP348G263pv6mCnKGneAFAoffF9oYwEs8JTeYpV13PdIWVq8x6';
                             $datas1 = json_decode(file_get_contents($rUrl1), true);
                             foreach($datas1['items'] as $item){
                                 foreach($item['items'] as $data){
 
                                     $data1 = new History;
                                     $data2 = new Otherarr;
-                                 
+                                    if (array_key_exists("id",$data))
+                                    {
+                                        $history = History::findOrfail($data['id']);
+                                        if($history == null)
+                                        {
                                         $data1->history_id=$data['id'];
                                         $data1->device_id=$data['device_id'];
                                         $data1->altitude=$data['altitude'];
@@ -100,6 +100,8 @@ class dataController extends Controller
                                                $data2->save();
                                             }
                                     }
+                                }
+                            }
                             }
                  }
             }
@@ -150,7 +152,7 @@ class dataController extends Controller
     $start_date = $request->input('start_date');
     $end_date = $request->input('end_date');
 
-        $rUrl = 'http://gpstracker.lafilgroup.com/api/get_devices?user_api_hash=$2y$10$AeNfa92L0azC0yfYhS9UMuQrrcACiitaR.8AvcidoCPDVFC5pl4cW';
+        $rUrl = 'http://gpstracker.lafilgroup.com/api/get_devices?user_api_hash=$2y$10$uH/xP348G263pv6mCnKGneAFAoffF9oYwEs8JTeYpV13PdIWVq8x6';
 
             $datas = json_decode(file_get_contents($rUrl), true);
             foreach($datas as $item)
@@ -170,19 +172,19 @@ class dataController extends Controller
                              {
                                 $data->save();
                              }
-                          
-                            $date_today= date('Y-m-d'); 
-                            $date = strtotime($date_today);
-                            $date = strtotime("-1 day", $date);
-                            $date_today1 = date('Y-m-d', $date);
-                            $rUrl1 = 'http://gpstracker.lafilgroup.com/api/get_history?device_id='.$values['id'].'&from_date='.$start_date.'&from_time=00:00&to_date='.$date_today1.'&to_time=23:59&user_api_hash=$2y$10$AeNfa92L0azC0yfYhS9UMuQrrcACiitaR.8AvcidoCPDVFC5pl4cW';
+                             
+                            $rUrl1 = 'http://gpstracker.lafilgroup.com/api/get_history?device_id='.$values['id'].'&from_date='.$start_date.'&from_time=00:00&to_date='.$end_date.'&to_time=23:59&user_api_hash=$2y$10$uH/xP348G263pv6mCnKGneAFAoffF9oYwEs8JTeYpV13PdIWVq8x6';
                             $datas1 = json_decode(file_get_contents($rUrl1), true);
-                            foreach($datas1['items'] as $item){
+                             foreach($datas1['items'] as $item){
                                 foreach($item['items'] as $data){
 
                                     $data1 = new History;
                                     $data2 = new Otherarr;
-                                 
+                                    if (array_key_exists("id",$data))
+                                    {
+                                        $history = History::findOrfail($data['id']);
+                                        if($history == null)
+                                        {
                                         $data1->history_id=$data['id'];
                                         $data1->device_id=$data['device_id'];
                                         $data1->altitude=$data['altitude'];
@@ -235,13 +237,13 @@ class dataController extends Controller
                                                $data2->save();
                                             }
                                     }
+                                }
+                                }
                             }
                  }
             }
             echo "<script>window.close();</script>";
-  
     }
-    
     public function destroy()
     {
         

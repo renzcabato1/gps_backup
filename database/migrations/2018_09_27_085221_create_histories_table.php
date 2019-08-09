@@ -23,7 +23,7 @@ class CreateHistoriesTable extends Migration
             $table->double('longtitude',30,20)->nullable();
             $table->string('power', 10)->nullable();
             $table->integer('speed')->nullable();
-            $table->varchar('time')->nullable();
+            $table->string('time')->nullable();
             $table->dateTime('device_time')->nullable();
             $table->dateTime('server_time')->nullable();
             $table->string('sensors_values', 10)->nullable();
