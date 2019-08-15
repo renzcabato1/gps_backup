@@ -111,11 +111,6 @@ class dataController extends Controller
 
     public  function manual_connect(Request $request)
     {
-        $this->validate(request(),[
-            'start_date' => 'date_format:Y-m-d|required',
-            'end_date' =>'date_format:Y-m-d||after_or_equal:start_date|required',
-    ]    
-    );
 
     $start_date = $request->input('start_date');
     $end_date = $request->input('end_date');

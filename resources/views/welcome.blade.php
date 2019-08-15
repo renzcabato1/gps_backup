@@ -158,4 +158,3 @@
     </div>
 </body>
 </html>
-href="{{ url('/data-connect') }}"
