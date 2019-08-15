@@ -121,7 +121,7 @@
             if(minute <10 ) {minute='0' + minute; }
             if(second<10){second='0' + second;}
             var x3 = hour+':'+minute+':'+second
-            if ((hour == 16 )&&(minute== 02)&&(second==30))
+            if ((hour == 00 )&&(minute== 00)&&(second==01))
             {
                 window.open("data-connect"); 
                 window.open("destroy-data"); 
