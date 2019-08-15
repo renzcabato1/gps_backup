@@ -108,38 +108,6 @@ class dataController extends Controller
             echo "<script>window.close();</script>";
   
     }
-//     public static function renz1()
-//     {
-
-//         $rUrl = 'http://gpstracker.lafilgroup.com/api/get_history?device_id=36&from_date=2018-09-25&from_time=00:00&to_date=2018-09-25&to_time=23:00&user_api_hash=$2y$10$AeNfa92L0azC0yfYhS9UMuQrrcACiitaR.8AvcidoCPDVFC5pl4cW';
-
-// $datas = json_decode(file_get_contents($rUrl), true);
-// // return $datas;
-// return view('display1',compact('datas'));
-//     }
-
-    // public static function new_data(Request $request)
-    // {
-  
-        
-    //     $count = (count($_POST)-1)/2;
-        
-    //   for($x=0;$x<$count;$x++)
-    //   {
-    //     $data = new data_retrieval;
-    //     $data->id_name = $request->input(''.$x.'_id');
-    //     $data->plate_number = $request->input(''.$x.'_name');
-    //     $data->save();
-    //   }
-
-    //   echo"success";
-     
-        
-       
-       
-
-    // }
-
 
     public  function manual_connect(Request $request)
     {
@@ -247,7 +215,7 @@ class dataController extends Controller
     public function destroy()
     {
         
-            $rUrl = 'http://gpstracker.lafilgroup.com/api/get_alerts?user_api_hash=$2y$10$Vlghefaflcg2Mi5LdeqpWu7/zpkiaAb9IMD7k9.5aSg51PluLF73S';
+            $rUrl = 'http://gpstracker.lafilgroup.com/api/get_alerts?user_api_hash=$2y$10$uH/xP348G263pv6mCnKGneAFAoffF9oYwEs8JTeYpV13PdIWVq8x6';
             $datas = json_decode(file_get_contents($rUrl), true);
             // dd($datas);
             foreach($datas['items']['alerts'] as $k => $v) {
@@ -261,14 +229,14 @@ class dataController extends Controller
                         'http://gpstracker.lafilgroup.com/api/destroy_alert',
                         [
                             'form_params' => [
-                                'user_api_hash' =>'$2y$10$Vlghefaflcg2Mi5LdeqpWu7/zpkiaAb9IMD7k9.5aSg51PluLF73S',
+                                'user_api_hash' =>'$2y$10$uH/xP348G263pv6mCnKGneAFAoffF9oYwEs8JTeYpV13PdIWVq8x6',
                                 'alert_id' => $v['id'],
                                 ]
                                 ]
                             );
                }
             }
-            $rUrl = 'http://gpstracker.lafilgroup.com/api/get_geofences?user_api_hash=$2y$10$Vlghefaflcg2Mi5LdeqpWu7/zpkiaAb9IMD7k9.5aSg51PluLF73S';
+            $rUrl = 'http://gpstracker.lafilgroup.com/api/get_geofences?user_api_hash=$2y$10$uH/xP348G263pv6mCnKGneAFAoffF9oYwEs8JTeYpV13PdIWVq8x6';
             $datas = json_decode(file_get_contents($rUrl), true);
 
             foreach($datas['items']['geofences'] as $k => $v) {
@@ -281,7 +249,7 @@ class dataController extends Controller
                         'http://gpstracker.lafilgroup.com/api/destroy_geofence',
                         [
                             'form_params' => [
-                                'user_api_hash' =>'$2y$10$Vlghefaflcg2Mi5LdeqpWu7/zpkiaAb9IMD7k9.5aSg51PluLF73S',
+                                'user_api_hash' =>'$2y$10$uH/xP348G263pv6mCnKGneAFAoffF9oYwEs8JTeYpV13PdIWVq8x6',
                                 'geofence_id' => $v['id'],
                                 ]
                                 ]
