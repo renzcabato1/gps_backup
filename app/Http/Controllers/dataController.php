@@ -153,61 +153,58 @@ class dataController extends Controller
                             $data2 = new Otherarr;
                             if (array_key_exists("id",$data))
                             {
-                                $history = History::findOrfail($data['id']);
-                                if($history == null)
-                                {
-                                    $data1->history_id=$data['id'];
-                                    $data1->device_id=$data['device_id'];
-                                    $data1->altitude=$data['altitude'];
-                                    $data1->course=$data['course'];
-                                    $data1->latitude=$data['latitude'];
-                                    $data1->longtitude=$data['longitude'];
-                                    $data1->power=$data['power'];
-                                    $data1->speed=$data['speed'];
-                                    $data1->time=$data['time'];
-                                    $data1->device_time=$data['device_time'];
-                                    $data1->server_time=$data['server_time'];
-                                    $data1->sensors_values=$data['sensors_values'];
-                                    $data1->valid=$data['valid'];
-                                    $data1->distance=$data['distance'];
-                                    $data1->protocol=$data['protocol'];
-                                    $data1->color=$data['color'];
-                                    $data1->item_id=$data['item_id'];
-                                    $data1->raw_time=$data['raw_time'];
-                                    $data1->lat=$data['lat'];
-                                    $data1->lng=$data['lng']; 
-                                    if (History::where('history_id', '=', $data['id'])->count() > 0) {
-                                        
-                                    }
-                                    else
-                                    {
-                                        $data1->save();
-                                    }
-                                    $data2->sequence= substr($data['other_arr'][0],10);
-                                    $data2->distance= substr($data['other_arr'][1],10);
-                                    $data2->totaldistance=substr($data['other_arr'][2],15);
-                                    $data2->motion= substr($data['other_arr'][3],8);
-                                    $data2->valid=substr($data['other_arr'][4],7);
-                                    $data2->ignition=substr($data['other_arr'][5],10);
-                                    $data2->temp1=substr($data['other_arr'][6],7);
-                                    $data2->history_id=$data['id'];
+                                $data1->history_id=$data['id'];
+                                $data1->device_id=$data['device_id'];
+                                $data1->altitude=$data['altitude'];
+                                $data1->course=$data['course'];
+                                $data1->latitude=$data['latitude'];
+                                $data1->longtitude=$data['longitude'];
+                                $data1->power=$data['power'];
+                                $data1->speed=$data['speed'];
+                                $data1->time=$data['time'];
+                                $data1->device_time=$data['device_time'];
+                                $data1->server_time=$data['server_time'];
+                                $data1->sensors_values=$data['sensors_values'];
+                                $data1->valid=$data['valid'];
+                                $data1->distance=$data['distance'];
+                                $data1->protocol=$data['protocol'];
+                                $data1->color=$data['color'];
+                                $data1->item_id=$data['item_id'];
+                                $data1->raw_time=$data['raw_time'];
+                                $data1->lat=$data['lat'];
+                                $data1->lng=$data['lng']; 
+                                if (History::where('history_id', '=', $data['id'])->count() > 0) {
                                     
-                                    if (array_key_exists("7",$data['other_arr']))
-                                    {
-                                        $data2->enginehours=substr($data['other_arr'][7],13);
-                                    }
-                                    else
-                                    {
-                                        $data2->enginehours=NULL;
-                                    }
-                                    if (Otherarr::where('history_id', '=', $data['id'])->count() > 0) {
-                                        
-                                    }
-                                    else
-                                    {
-                                        $data2->save();
-                                    }
                                 }
+                                else
+                                {
+                                    $data1->save();
+                                }
+                                $data2->sequence= substr($data['other_arr'][0],10);
+                                $data2->distance= substr($data['other_arr'][1],10);
+                                $data2->totaldistance=substr($data['other_arr'][2],15);
+                                $data2->motion= substr($data['other_arr'][3],8);
+                                $data2->valid=substr($data['other_arr'][4],7);
+                                $data2->ignition=substr($data['other_arr'][5],10);
+                                $data2->temp1=substr($data['other_arr'][6],7);
+                                $data2->history_id=$data['id'];
+                                
+                                if (array_key_exists("7",$data['other_arr']))
+                                {
+                                    $data2->enginehours=substr($data['other_arr'][7],13);
+                                }
+                                else
+                                {
+                                    $data2->enginehours=NULL;
+                                }
+                                if (Otherarr::where('history_id', '=', $data['id'])->count() > 0) {
+                                    
+                                }
+                                else
+                                {
+                                    $data2->save();
+                                }
+                                
                             }
                         }
                     }
